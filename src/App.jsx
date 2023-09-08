@@ -21,7 +21,7 @@ function App() {
 
   return (
     <main>
-      <h1>Welcome to Songmoji</h1>
+      <h1>Welcome to SongEmojis 😲</h1>
 
       <ul>
         {questions.map((question) => (
