@@ -3,11 +3,11 @@ const data = {
   hint: "tells the tale of a young girl who claims to be the mother of Jackson's alleged son.",
 };
 
-export function Question() {
+export function Question({ emojis, hint }) {
   return (
     <div className="card w-96 bg-base-100 shadow-xl ">
       <div className="card-body text-center flex flex-col items-center">
-        <h2 className="card-title text-4xl">{data.emojis}</h2>
+        <h2 className="card-title text-4xl">{emojis}</h2>
         <div className="dropdown mt-5">
           <label tabIndex={0} className="btn m-1">
             Hint
@@ -17,7 +17,7 @@ export function Question() {
             className="dropdown-content z-[1] card card-compact w-64 shadow bg-warning text-primary-content"
           >
             <div className="card-body">
-              <p>you can use any element as a dropdown.</p>
+              <p>{hint}</p>
             </div>
           </div>
         </div>
