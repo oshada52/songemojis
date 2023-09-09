@@ -1,19 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
 import { useState } from "react";
-
-const supabase = createClient(
-  import.meta.env.VITE_PROJECT_URL,
-  import.meta.env.VITE_API_KEY
-);
 
 function formatString(str) {
   const matches = str.split('"');
   return matches;
-}
-
-async function getQuestions() {
-  const { data } = await supabase.from("questions").select("answer");
-  console.log(data);
 }
 
 export function Choices({ first, second, third, result, action }) {
@@ -26,6 +15,7 @@ export function Choices({ first, second, third, result, action }) {
   function checkAnswer(guess) {
     if (guess === result) {
       document.getElementById("my_modal_1").showModal();
+      setChance(true);
     } else if (chance) {
       document.getElementById("my_modal_2").showModal();
       setChance(false);
@@ -92,7 +82,7 @@ export function Choices({ first, second, third, result, action }) {
           <h3 className="font-bold text-lg">Try Again</h3>
           <picture>
             <source
-              srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/203c_fe0f/512.webp"
+              src="https://fonts.gstatic.com/s/e/notoemoji/latest/203c_fe0f/512.webp"
               type="image/webp"
             />
             <img
@@ -112,7 +102,7 @@ export function Choices({ first, second, third, result, action }) {
           <span className="font-bold text-2xl">Quize Faild</span>
           <picture>
             <source
-              srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/274c/512.webp"
+              src="https://fonts.gstatic.com/s/e/notoemoji/latest/274c/512.webp"
               type="image/webp"
             />
             <img

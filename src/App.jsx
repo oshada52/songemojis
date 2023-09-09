@@ -1,31 +1,26 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+
+import db from "./lib/db";
+import fetchQuizes from "./lib/fetchQuizes";
 
 import { Header } from "./components/header";
 import { Question } from "./components/question";
 import { Choices } from "./components/choices";
-import { Alerts } from "./components/alerts";
 import { Result } from "./components/result";
-
-const supabase = createClient(
-  import.meta.env.VITE_PROJECT_URL,
-  import.meta.env.VITE_API_KEY
-);
 
 function App() {
   const [questionsList, setQuestionsList] = useState();
   const [question, setQuestion] = useState();
   const [round, setRound] = useState(1);
+  const [test, setTest] = useState(false);
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
-    getQuestions();
+    fetchQuizes().then((data) => {
+      setQuestionsList(data);
+      setQuestion(data[0]);
+    });
   }, []);
-
-  async function getQuestions() {
-    const { data } = await supabase.from("questions").select();
-    setQuestionsList(data);
-    setQuestion(data[0]);
-  }
 
   function nextQuestion() {
     setRound(round + 1);
@@ -51,7 +46,6 @@ function App() {
         ) : (
           <span className="loading loading-spinner loading-lg"></span>
         )}
-        <Result />
       </main>
     </>
   );
